@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <style>
+        img{
+            width: 100%;
+        }
+        #showmovie>div{
+            width: 70%;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            border-radius: 10px;
+        }
+        p{
+            font-size: 20px;
+            color: blueviolet;
+            line-height: 15px;
+        }
+        img{
+            width: 100%;
+            border-radius: 10px;
+        }
+        #movie{
+            margin-bottom: 70px;
+        }
+        #trand{
+            text-align: center;
+        }
+
+    
+
+        #sort> button{
+               height: 40px;
+               width: 250px;
+               margin: 50px;
+               margin-left: 0px;
+               color: green;
+               font-size: 17px;
+               padding: 5px;
+               border-radius: 5px;
+               background-color: burlywood;
+               border: none;
+               cursor: pointer;
+        }
+        #loader{
+            display: none;
+        }
+        #sort> button:nth-child(3){
+            background-color: cadetblue;
+            color: black;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- navbar -->
+   <div id="navbar">
+    <!-- <div>
+             <div> <img src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg"></div>
+             <p>Tv</p>
+             <p>Movies</p>
+             <p>Sports</p>
+             <p>Disney+</p>
+
+    </div>
+    <div>
+       <input type="text" placeholder="Search">
+       <button>Subscribe</button>
+       <a href="signin.html" id="log"><button>LOGIN</button></a>
+    </div> -->
+</div>
+
+    
+    <!-- sliding movie -->
+       <div id="movie">
+  
+       </div>
+         <h1 id="trand">Top trending movie</h1>
+
+         <!-- sort -->
+   <div id="sort"> 
+    <button id="loto">Sort by low rating to high</button>
+    <button id="highto">Sort by High rating to low</button>
+    <button id="search">Search your fav movie</button>
+ </div>
+       <!-- all movie -->
+       <div id="loader">
+        <img src="https://media2.giphy.com/media/y1ZBcOGOOtlpC/giphy.gif?cid=ecf05e47ywm9t7zensfokiblla3hz8piragjr6b0ocqo9izh&rid=giphy.gif&ct=g" alt="">
+    </div>
+         <div id="showmovie">
+
+         </div>
+</body>
+</html>
+
+<script type="module">
+     
+      //navbar creation from export
+      import x from "./component/navbar.js";
+      console.log(x)
+      document.getElementById("navbar").innerHTML=x()
+
+      //geting append from export
+      import append from "./component/append.js"
+
+      //sliding part ( import )
+    import show from "./component/slideshow.js"
+    show()
+
+
+     //loader part
+     let load= document.getElementById("loader");
+     
+
+    // show data
+    let name=["bahubali","saho","rrr","Avengers","3 ediots","gandu","Bhim","tum","piku","yejavani"]
+       let rating=[7.8, 4.5, 9.0, 8.9,4.0, 6.7 ,7.8,3.0 ,6.0,8.7];
+       let date=["nov 2018","dec 2013","march 2018","april 2019","feb 2017","jan 2022","dec 2016","june 2021","nov 2025","oct 2021","july 2020"];
+       let url=["https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/4836/1374836-v-9e675d9bcb9e","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/4267/1364267-v-59ed5cfdea3a","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/7821/1297821-v-b98524058dcb","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/old_images/vertical/MOVIE/3314/1770003314/1770003314-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8285/388285-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6536/846536-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/3270/1173270-v-b2cc135901b1","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/7391/1367391-v-84d5e12d4c3d","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/3031/1313031-v-b040a10a7e8b","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/1780/1291780-v-d20f8d106d78","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6452/1376452-v-25e16b21c554"]
+      
+       
+       let arr=[];
+       function data(img,name,date,rating,){
+              this.Poster=img
+              this.Title=name;
+              this.Year=date;
+              this.Type=rating;
+         }
+   
+      
+       for(let i=0;i<=name.length-1;i++){
+            
+            arr.push(new data(url[i],name[i],date[i],rating[i]));    
+       }
+       console.log(arr)
+
+      //style to movie div
+     let box= document.getElementById("showmovie");
+    
+     box.style.width="90%";
+     box.style.margin="auto"
+     box.style.display="grid";
+     box.style.gridTemplateColumns="repeat(3,1fr)"
+     box.style.gridTemplateRows="auto"
+     box.style.gap="50px 50px"
+
+
+  
+    
+    let getdata= new Promise(function(resolve,reject){
+        load.style.display="block"
+        setTimeout(function(){
+            let data=arr;
+            
+             if(data!=null){
+               
+                resolve(data)
+             }else{
+                reject("")
+             }
+           
+        },2000)
+        
+        })
+
+       getdata.then(function(success){
+        load.style.display="none"
+              append(success)
+           
+        }).catch(function(error){
+            console.log(error)
+        })
+
+    
+    //console.log(getdata)
+
+    //filter
+      
+  //low to high sort
+  document.getElementById("loto").addEventListener("click",lowto);
+    
+    function lowto(){
+            arr.sort(function(a,b){
+               return a.Type-b.Type
+            })
+
+            append(arr)
+    }
+   
+       
+    //high to low
+    document.getElementById("highto").addEventListener("click",highto);
+   
+    function highto(){
+        arr.sort(function(a,b){
+               return b.Type-a.Type
+            })
+
+            append(arr)
+    }
+
+
+       //sign in 
+        document.getElementById("log").addEventListener("click",signin)
+
+        function signin(){
+            window.location.href = 'signin.html';
+            console.log("amit")
+        }
+
+        //Serch movie
+        document.getElementById("search").addEventListener("click",fun1);
+
+        function fun1(){
+            window.location.href="search.html"
+        }
+        //go to home page
+        document.getElementById("homepage").addEventListener("click",homepage);
+
+            function homepage(){
+                  window.location.href="index.html"
+             }
+
+
+</script>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <style>
+        /* for serch input */
+        #my_movies {
+            width: 300px;
+            height: 30px;
+            border-color: aqua;
+            outline: none;
+        }
+
+        #heading {
+            color: cornflowerblue;
+        }
+
+        #showmovie {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 50px;
+            text-align: center;
+        }
+        #showmovie img{
+            width: 100%;
+        }
+
+        #showmovie p {
+            font-size: 20px;
+            font-weight: 600;
+            color: lightslategrey;
+        }
+
+        #loader {
+            display: none;
+            width: 50%;
+            align-items: flex-start;
+            margin: auto;
+        }
+
+        #loader img {
+            width: 100%;
+        }
+
+        #err {
+            display: none;
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar">
+
+
+    </div>
+
+
+    <h1 id="heading">Search your favorite movie hear</h1>
+
+    <!-- <input type="text" id="my_movies" > -->
+    
+
+
+    <div id="loader">
+        <img src="https://media2.giphy.com/media/y1ZBcOGOOtlpC/giphy.gif?cid=ecf05e47ywm9t7zensfokiblla3hz8piragjr6b0ocqo9izh&rid=giphy.gif&ct=g"
+            alt="">
+    </div>
+
+    <div id="showmovie"></div>
+    <img src="https://cdn.vectorstock.com/i/1000x1000/58/95/oops-404-error-vector-16645895.webp" alt="" id="err">
+</body>
+
+</html>
+
+<script type="module">
+
+//loader part
+let load= document.getElementById("loader");
+ // show data
+ let name=["bahubali","saho","rrr","Avengers","3 ediots","gandu","Bhim","tum","piku","yejavani"]
+       let rating=[7.8, 4.5, 9.0, 8.9,4.0, 6.7 ,7.8,3.0 ,6.0,8.7];
+       let date=["nov 2018","dec 2013","march 2018","april 2019","feb 2017","jan 2022","dec 2016","june 2021","nov 2025","oct 2021","july 2020"];
+       let url=["https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/4836/1374836-v-9e675d9bcb9e","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/4267/1364267-v-59ed5cfdea3a","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/7821/1297821-v-b98524058dcb","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/old_images/vertical/MOVIE/3314/1770003314/1770003314-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8285/388285-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6536/846536-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/3270/1173270-v-b2cc135901b1","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/7391/1367391-v-84d5e12d4c3d","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/3031/1313031-v-b040a10a7e8b","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/1780/1291780-v-d20f8d106d78","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6452/1376452-v-25e16b21c554"]
+      
+       
+       let arr=[];
+       function data(img,name,date,rating,){
+              this.Poster=img
+              this.Title=name;
+              this.Year=date;
+              this.Type=rating;
+         }
+   
+      
+       for(let i=0;i<=name.length-1;i++){
+            
+            arr.push(new data(url[i],name[i],date[i],rating[i]));    
+       }
+       console.log(arr)
+
+        
+    let getdata= new Promise(function(resolve,reject){
+        load.style.display="block"
+        setTimeout(function(){
+            let data=arr;
+            
+             if(data!=null){
+               
+                resolve(data)
+             }else{
+                reject("")
+             }
+           
+        },2000)
+        
+        })
+
+       getdata.then(function(success){
+        load.style.display="none"
+              append(success)
+           
+        }).catch(function(error){
+            console.log(error)
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //script for nav bar for import
+    import x from "./component/navbar.js";
+    document.getElementById("navbar").innerHTML = x()
+
+    //import append
+    import append from "./component/append.js"
+
+    document.querySelector("#navbar input").setAttribute("id", "my_movies")
+    let err = document.getElementById("err")
+
+    //debounce code
+    document.getElementById("my_movies").addEventListener("input", function () {
+        debounce(serchmovie, 800)
+    })
+
+    let id;
+    function debounce(fun, delay) {
+        let load = document.getElementById("loader");
+        load.style.display = "block"
+        if (id) {
+            clearTimeout(id)
+        }
+
+        id = setTimeout(fun, delay);
+    }
+
+    //api call
+
+    async function serchmovie() {
+        let my_movies = document.getElementById("my_movies").value;
+
+        console.log(my_movies);
+
+
+        try {
+
+            let res = await fetch(`https://www.omdbapi.com/?apikey=6c8228b4&s=${my_movies}`)
+
+
+            let data = await res.json();
+            console.log(data)
+            let actual_data = data.Search;
+            document.getElementById("loader").style.display = "none"
+            err.style.display = "none"
+            append(actual_data)
+            console.log(actual_data)
+        } catch (error) {
+            if (my_movies == "") {
+                err.style.display = "none"
+            } else {
+                err.style.display = "block"
+            }
+
+            console.log(error)
+
+        }
+
+
+
+    }
+
+
+    //sign in 
+    document.getElementById("log").addEventListener("click", signin)
+
+    function signin() {
+        window.location.href = 'signin.html';
+        console.log("amit")
+    }
+
+    //go to home page
+    document.getElementById("homepage").addEventListener("click", homepage);
+
+    function homepage() {
+        window.location.href = "index.html"
+    }
+
+
+</script>

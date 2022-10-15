@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <style>
+   body{
+    background-color: #4f7ecd;
+   }
+    body>div:nth-child(2){
+    height: 600px;
+    width: 400px;
+    margin: auto;
+    background-color:whitesmoke;
+    border-radius: 20px;
+}
+   h1{
+    margin-top: 50px;
+    padding-top: 70px;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 50px;
+
+   }
+  #sign input{
+    display: block; 
+    margin-left: 40px;
+    height: 20px;
+    border: 3px solid #c1c1c1;
+    width: 300px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    margin-top: 40px;
+    height: 35px;
+    font-size: 15px;
+    background-color:whitesmoke;
+   }
+
+   button {
+    height: 40px;
+    width: 300px;
+    margin-left: 40px;
+    margin-top: 40px;
+    background-color:#7d53b5 ;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: aliceblue;
+    margin-bottom: 60px;
+    
+   }
+    p{
+        margin-left: 40px;
+        text-align: center;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        color:#827777 ;
+    }
+    .anchor{
+        color: #264d91;
+        font-weight: 100;
+    }
+    #signup{
+        cursor: pointer;
+    }
+   
+    </style>
+</head>
+<body>
+        <div id="navbar"></div>
+        <div id="sign">
+               <h1>Login</h1>
+               <input type="text" placeholder="Email">
+               <input type="password" placeholder="Password">
+               <button>Login</button>
+               <p>Forgot <span class="anchor">password</span>?</p>
+               <p>Don't have an account ?<span class="anchor" id="signup">Sign up</span></p>
+
+        </div>
+</body>
+</html>
+
+<script type="module">
+
+    //navbar form component
+    import x from "./component/navbar.js";
+    document.getElementById("navbar").innerHTML=x();
+
+
+    document.getElementById("signup").addEventListener("click",signup)
+    function signup(){
+        window.location.href="signup.html"
+    }
+</script>
+
